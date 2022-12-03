@@ -1,0 +1,58 @@
+<!DOCTYPE html> 
+<html lang='fr'> 
+<head> 
+<meta charset='UTF-8'> 
+<link href="https://fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet"> 
+<link rel='stylesheet' type='text/css' href='../style/aocLike.css'> 
+<meta name='day' content="day3"> 
+</head> 
+<body> 
+<section id='translation_part_one'> 
+<h1 id="jour-3-organisation-de-sac-à-dos----">--- Jour 3 : organisation de sac à dos ---</h1>
+<p>Un elfe est chargé de l'important travail de charger tous les <a href="https://fr.wikipedia.org/wiki/Sac_%C3%A0_dos">sacs à dos</a> avec des provisions pour le voyage dans la jungle. Malheureusement, cet elfe n'a pas suivi les instructions de chargement, et quelques objets doivent maintenant être réarrangés.</p>
+<p>Chaque sac à dos possède deux grands <em>compartiments</em>. Chaque objet d'un type donné est sensé aller dans un seul de ces deux compartiments. L'elfe qui a préparé les sacs n'a pas suivi cette règle pour exactement un type d'objet par sac à dos.</p>
+<p>Les elfes ont fait une liste de tous les objets présents actuellement dans chaque sac à dos. Chaque type d'objet est identifié par une seule lettre en majuscule ou en minuscule (ce qui veut dire que <code>a</code> et <code>A</code> font références à des objets de types différents).</p>
+<p>La liste des objets d'un sac à dos est donnée en tant que liste de caractères sur une seule ligne. Un sac à dos donné a toujours le même nombre d'objets dans chacun de ses deux compartiments. Ainsi, la première moitié de la ligne de caractères représente le premier compartiment, et la deuxième moitié de la liste de caractères représente le second compartiment.</p>
+<p>Par exemple, supposez que vous ayez la liste suivante des contenus de six sacs à dos :</p>
+<pre class="rucksacks"><code>vJrwpWtwJgWrhcsFMMfFFhFp
+jqHRNqRjqzjGDLGLrsFMfFZSrLrFZsSL
+PmmdzqPrVvPwwTWBwg
+wMqvLMZHhHMvwLHjbvcjnnSBnvTQFn
+ttgJtRGJQctTZtZT
+CrZsJsPPZsGzwwsLwLmpwMDw</code></pre>
+<ul>
+<li>Le premier sac à dos contient les objets <code>vJrwpWtwJgWrhcsFMMfFFhFp</code>, ce qui signifie que le premier compartiment contient les objets <code>vJrwpWtwJgWr</code>, alors que le deuxième compartiment contient les objets <code>hcsFMMfFFhFp</code>. Le seul type d'objet qui apparaît dans les deux compartiments est le <em><code>p</code></em> minuscule.</li>
+<li>Les compartiments du deuxième sac à dos contiennent <code>jqHRNqRjqzjGDLGL</code> et <code>rsFMfFZSrLrFZsSL</code>. le seul type d'objet contenu dans les deux compartiments est le <em><code>L</code></em> majuscule.</li>
+<li>Les compartiments du troisième sac à dos contiennent <code>PmmdzqPrV</code> et <code>vPwwTWBwg</code>, le seul type d'objet commun aux deux compartiment étant le <em><code>P</code></em> majuscule.</li>
+<li>Les compartiments du quatrième sac à dos ne partagent que le type d'objet <em><code>v</code></em>.</li>
+<li>Les compartiments du cinquième sac à dos ne partagent que le type d'objet <em><code>t</code></em>.</li>
+<li>Les compartiments du sixième sac à dos ne partagent que le type d'objet <em><code>s</code></em>.</li>
+</ul>
+<p>Pour aider à prioriser le réarrangement des objets, chaque type d'objet peut être converti en sa <em>priorité</em> :</p>
+<ul>
+<li>Les types d'objets en minuscules de <code>a</code> jusqu'à <code>z</code> ont des priorités allant de 1 à 26.</li>
+<li>Les types d'objets en majuscule de <code>A</code> jusqu'à <code>Z</code> ont des priorités allant de 27 à 52.</li>
+</ul>
+<p>Dans l'exemple ci-dessus, la liste de priorité des types d'objets apparaissant dans les deux compartiments de chaque sac à dos est 16 (<code>p</code>), 38 (<code>L</code>), 42 (<code>P</code>), 22 (<code>v</code>), 20 (<code>t</code>) et 19 (<code>s</code>). La somme de cette liste est <em><code>157</code></em>.</p>
+<p>Trouvez les types d'objets qui apparaissent dans les deux compartiments de chacun des sac à dos. <em>Quelle est la somme des priorités de ces types d'objet ?</em></p>
+</section> 
+<section id='translation_part_two'> 
+<h1 id="partie-deux----">--- Partie Deux ---</h1>
+<p>Alors que vous finissez d'identifier les objets mal placés, les elfes vous approchent avec un autre problème.</p>
+<p>Pour des raisons de sécurité, les elfes sont divisés en groupe de 3. Chaque elfe porte un badge qui identifie leur groupe. Pour être efficace, dans chaque groupe de trois elfes, le badge est le <em>seul type d'objet porté par l'ensemble des trois elfes</em>. C'est à dire que si le badge d'un groupe est le type d'objet <code>B</code>, alors les trois elfes du groupes auront le type d'objet <code>B</code> quelque part dans leur sac `s dos, et au plus deux des elfes porteront chacun des autres types d'objets.</p>
+<p>Le problème est que quelqu'un a oublié de mettre les autocollants d'authenticité mis à jour de cette année sur les badges. Tous les badges doivent donc être sortis des sacs à dos pour que les nouveaux autocollants d'authenticité puissent y être attachés.</p>
+<p>De plus, personne n'a écrit quel type d'objet correspond au badge de chaque groupe. La seule manière de savoir quel type d'objet est le bon est de trouver le type d'objet <em>commun aux trois elfes</em> de chacun des groupes.</p>
+<p>Chaque ensemble de trois lignes dans votre liste corresponds à un seul groupe, mais chaque groupe peut avoir un type d'objet différent pour badge. Ainsi, dans l'exemple ci-dessus, les sacs à dos du premier groupe sont les trois lignes suivantes :</p>
+<pre class="rucksacks"><code>vJrwpWtwJgWrhcsFMMfFFhFp
+jqHRNqRjqzjGDLGLrsFMfFZSrLrFZsSL
+PmmdzqPrVvPwwTWBwg</code></pre>
+<p>Et les sacs à dos du deuxième groupe sont les trois lignes suivantes :</p>
+<pre class="rucksacks"><code>wMqvLMZHhHMvwLHjbvcjnnSBnvTQFn
+ttgJtRGJQctTZtZT
+CrZsJsPPZsGzwwsLwLmpwMDw</code></pre>
+<p>Dans le premier groupe, le seul type d'objet qui apparaît dans chacun des trois sacs à dos est le <code>r</code> minuscule : il s'agit de leur badge. Dans le deuxième groupe, leur badge doit être <code>Z</code>.</p>
+<p>Les priorités de ces objets doivent être trouvées pour organiser la pose des autocollants : ici, ces priorités sont 18 (<code>r</code>) pour le premier groupe et 52 (<code>Z</code>) pour le second groupe. La somme de ces priorités donne <em><code>70</code></em>.</p>
+<p>Trouvez le type d'objet correspondant au type de badge de chacun des groupes de trois elfes. <em>Quelle est la somme des priorités de ces types d'objets ?</em></p>
+</section> 
+</body> 
+</html> 
