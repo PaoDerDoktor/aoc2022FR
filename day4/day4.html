@@ -1,0 +1,62 @@
+<!DOCTYPE html> 
+<html lang='fr'> 
+<head> 
+<meta charset='UTF-8'> 
+<link href="https://fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet"> 
+<link rel='stylesheet' type='text/css' href='../style/aocLike.css'> 
+<meta name='day' content="day4"> 
+</head> 
+<body> 
+<section id='translation_part_one'> 
+<h1 id="jour-4-nettoyage-du-camp----">--- Jour 4 : Nettoyage du Camp ---</h1>
+<p>Le lieu doit être nettoyé avant que les dernières provisions puissent être déchargées du bateau, et plusieurs elfes se sont vus assigner un poste de nettoyage de sections du camp. Chaque section possède un <em>numéro d'identification</em> unique, et chaque elfe se voit assigner un intervalle d'identifiants de section.</p>
+<p>Cependant, alors que certains des elfes comparent leurs assignations de sections les uns avec les autres, ils remarquent que beaucoup d'assignations se <em>superposent</em>. Pour essayer de trouver rapidement les superpositions et réduire les efforts dupliqués, les elfes se regroupent en paire et forment une <em>grande liste des assignation de sections pour chaque paire</em> (l'entrée de votre puzzle).</p>
+<p>Par exemple, considérez la liste de paires d'assignations de sections suivante :</p>
+<pre class="assignationlist"><code>2-4,6-8
+2-3,4-5
+5-7,7-9
+2-8,3-7
+6-6,4-6
+2-6,4-8</code></pre>
+<p>Pour quelques-unes des premières paires, cette liste montre que :</p>
+<ul>
+<li>Dans la première paire d'elfes, le premier elfe s'est vu assigner les sections <code>2-4</code> (les sections <code>2</code>, <code>3</code> et <code>4</code>), alors que le deuxième elfe s'est vu assigner les sections <code>6-8</code> (<code>6</code>, <code>7</code> et <code>8</code>).</li>
+<li>Les elfes de la deuxième paire se sont vus assigner deux sections.</li>
+<li>Les elfes de la troisième paire se sont chacun vu assigner trois sections: l'un a eu les sections <code>5</code>, <code>6</code>, <code>7</code> alors que l'autre a aussi eu <code>7</code>, mais aussi <code>8</code> et <code>9</code>.</li>
+</ul>
+<p>Cette liste d'exemple utilise des nombres à un seul chiffre pour les identifiants de section pour la rendre plus facile à écrire ; votre liste effective pourrait contenir des nombres plus grands. Visuellement, ces paires d'assignations de sections ressemblent à ceci :</p>
+<pre class="assignation"><code>.234.....  2-4
+.....678.  6-8
+
+.23......  2-3
+...45....  4-5
+
+....567..  5-7
+......789  7-9
+
+.2345678.  2-8
+..34567..  3-7
+
+.....6...  6-6
+...456...  4-6
+
+.23456...  2-6
+...45678.  4-8</code></pre>
+<p>Certaines des paires d'elfes ont remarqué que l'une de leur assignation contenait complètement l'autre. Par exemple, <code>2-8</code> contient complètement <code>3-7</code>, et <code>6-6</code> est complètement contenu dans <code>4-6</code>. Dans les paires où une assignation est complètement contenue dans l'autre, un elfe dans la paire pourrait nettoyer exclusivement les sections que leur partenaire aurait déjà nettoyé, il semble donc que cette situation mérite d'être reconsidérée. Dans l'exemple ci-dessus, on trouve <em><code>2</code></em> paires dans cette situation.</p>
+<p>*Dans combien de paires d'assignations un intervalle contient-il complètement l'autre ?</p>
+</section> 
+<section id='translation_part_two'> 
+<h1 id="partie-deux----">--- Partie Deux ---</h1>
+<p>Il semblerait qu'il y ait toujours pas mal de travail dupliqué de planifié. À la place, les elfes voudraient donc connaître le nombre de paires qui <em>se superposent, tout court</em>.</p>
+<p>Dans l'exemple ci-dessus, les deux premières paires (<code>2-4,6-8</code> et <code>2-3,4-5</code>) ne se superposent pas, alors que les quatre paires restantes (<code>5-7,7-9</code>, <code>2-8,3-7</code>, <code>6-6,4-6</code> et <code>2-6,4-8</code>) se superposent bel et bien :</p>
+<ul>
+<li><code>5-7,7-9</code> se superposent une seule section, <code>7</code>.</li>
+<li><code>2-8,3-7</code> se superposent sur toutes les sections de <code>3-7</code>.</li>
+<li><code>6-6,4-6</code> se superposent sur une seule section, <code>6</code>.</li>
+<li><code>2-6,4-8</code> se superposent sur les sections <code>4</code>, <code>5</code> et <code>6</code>.</li>
+</ul>
+<p>Ainsi, dans cet exemple, le nombre de paires d'assignations se superposant est de <em><code>4</code></em>.</p>
+<p><em>Dans combien de paires d'assignations les intervalles se superposent-ils au moins en partie ?</em></p>
+</section> 
+</body> 
+</html> 
