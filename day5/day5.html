@@ -1,0 +1,94 @@
+<!DOCTYPE html> 
+<html lang='fr'> 
+<head> 
+<meta charset='UTF-8'> 
+<link href="https://fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet"> 
+<link rel='stylesheet' type='text/css' href='../style/aocLike.css'> 
+<meta name='day' content="day5"> 
+</head> 
+<body> 
+<section id='translation_part_one'> 
+<h1 id="piles-de-provisions----">--- Piles de provisions ---</h1>
+<p>L'expédition peut démarrer dès que les dernières provisions seront déchargées du bateau. Les provisions sont stockées dans des piles de <em>caisses</em> marquées, mais puisque les provisions nécessaires sont enterrées sous beaucoup d'autres caisses, elles doivent être réarrangées.</p>
+<p>le bateau possède une <em>grue de chargement géante</em> capable de déplacer les caisses entre les piles. Pour s'assurer qu'aucune des caisses ne se fasse écraser ou ne tombe, la grutière les réarrangera en suivant une série d'étapes bien préparées avec soin. Après le réarrangement des caisses, les caisses requises seront au sommet de chaque pile.</p>
+<p>Les elfes ne veulent pas interrompre la grutière pendant cette procédure délicate, mais ils ont oublié de lui demander *où chaque caisse se retrouvera, et ils souhaitent être prêts à les décharger aussi vite que possible afin de démarrer l'expédition.</p>
+<p>Par contre, ils ont un dessin des piles de caisses de départ <em>et</em> la procédure de réarrangement (l'entrée de votre puzzle). Par exemple :</p>
+<pre class="cratesfull"><code>    [D]    
+[N] [C]    
+[Z] [M] [P]
+ 1   2   3 
+
+move 1 from 2 to 1
+move 3 from 1 to 3
+move 2 from 2 to 1
+move 1 from 1 to 2</code></pre>
+<p>On peut traduire l'instruction "<code>move 1 from 2 to 1</code>" en "<code>déplacer 1 caisse depuis la pile 2 jusqu'à la pile 1</code>".</p>
+<p>Dans cet exemple, il y a trois piles de caisses. La pile 1 contient deux caisses : la caisse <code>Z</code> est au fond, et la caisse <code>N</code> est au sommet. La pile 2 contient trois caisses, de haut en bas <code>M</code>, <code>C</code> et <code>D</code>. Enfin, la pile 3 contient une seule caisse, <code>P</code>.</p>
+<p>Ensuite, vous pouvez trouver la procédure de réarrangement. À chaque étape de la procédure, une quantité donnée de caisses est déplacée d'une pile donnée à une autre pile donnée. Dans la première étape de la procédure de réarrangement ci-dessus, une caisse est déplacée de la pile 2 à la pile 1, donnant cette nouvelle configuration :</p>
+<pre class="cratesstacks"><code>[D]        
+[N] [C]    
+[Z] [M] [P]
+ 1   2   3 </code></pre>
+<p>À la seconde étape, trois caisses sont déplacées de la pile 1 à la pile 3. Les caisses sont déplacées <em>une à la fois</em>, la première caisse à être déplacée (<code>D</code>) termine donc en-dessous de la deuxième et de la troisième caisse :</p>
+<pre class="cratesstacks"><code>        [Z]
+        [N]
+    [C] [D]
+    [M] [P]
+ 1   2   3</code></pre>
+<p>Ensuite, deux caisses sont déplacées de la pile 2 à la pile 1. À nouveau, puisque les caisses sont déplacées <em>une à la fois</em>, la caisse <code>C</code> termine en-dessous de la caisse <code>M</code> :</p>
+<pre class="cratesstacks"><code>        [Z]
+        [N]
+[M]     [D]
+[C]     [P]
+ 1   2   3</code></pre>
+<p>Enfin, une caisse est déplacée de la pile 1 à la pile 2 :</p>
+<code>
+<pre>        [<em>Z</em>]
+        [N]
+        [D]
+[<em>C</em>] [<em>M</em>] [P]
+ 1   2   3</pre>
+<p></code></p>
+<p>Les elfes ont seulement besoin de savoir <em>quelle caisse finit au sommet de chacune des piles</em> ; dans cet exemple, les caisses au sommet sont <code>C</code> dans la pile 1, <code>M</code> dans la pile 2 et <code>Z</code> dans la pile 3, vous pouvez donc les combiner ensemble et donner aux elfes le message <em><code>CMZ</code></em>.</p>
+<p><em>Après que la procédure de réarrangement se soit terminée, quelle caisse termine au sommet de chacune des piles ?</em></p>
+</section> 
+<section id='translation_part_two'> 
+<h1 id="partie-deux----">--- Partie Deux ---</h1>
+<p>Alors que vous regardez la grutière réarranger les caisses d'une manière experte, vous remarquez que le processus ne se déroule pas selon vos prédictions.</p>
+<p>De la boue recouvrait un peu l'écriture sur le côté de la grue, et vous l'essuyez rapidement. La grue n'est pas un <em>DéplaceCaisse 9000</em> - C'est un <em>DéplaceCaisse 9001</em> !</p>
+<p>Le DéplaceCaisse 9001 est remarquable par beaucoup de nouvelles et excitantes fonctionnalités : l'air conditionné, des sièges en cuit, un porte-verre supplémentaire, et <em>la capacité de récupérer et déplacer plusieurs caisses à la fois</em>.</p>
+<p>Toujours en suivant l'exemple ci-dessus, les caisses démarrent dans la même situation :</p>
+<pre class="cratesstacks"><code>    [D]    
+[N] [C]    
+[Z] [M] [P]
+ 1   2   3</code></pre>
+<p>Déplacer une seule caisse de la pile 2 à la pile 1 donne le même résultat qu'auparavant :</p>
+<pre class="cratesstacks"><code>[D]        
+[N] [C]    
+[Z] [M] [P]
+ 1   2   3</code></pre>
+<p>Cependant, l'action de déplacer trois caisses de la pile 1 à la pile 3 signifie maintenant que les trois caisses déplacées <em>conserrent leur ordre</em>, résultant en cette nouvelle configuration :</p>
+<pre class="cratesstacks"><code>        [D]
+        [N]
+    [C] [Z]
+    [M] [P]
+ 1   2   3</code></pre>
+<p>Ensuite, alors que les deux caisses sont déplacées de la pile 2 à la pile 1, elles <em>retiennent leur ordre</em> également :</p>
+<pre class="cratesstacks"><code>        [D]
+        [N]
+[C]     [Z]
+[M]     [P]
+ 1   2   3</code></pre>
+<p>Enfin, une seule caisse est toujours déplacée de la pile 1 à la pile 2, mais c'est désormais la caisse <code>C</code> qui est déplacée :</p>
+<code>
+<pre>        [<em>D</em>]
+        [N]
+        [Z]
+[<em>M</em>] [<em>C</em>] [P]
+ 1   2   3</pre>
+<p></code></p>
+<p>Dans cet exemple, le DéplaceCaisse 9001 a terminé en mettant les caisses dans ordre complètement différent : <em><code>MCD</code></em>.</p>
+<p>Avant que le processus de réarrangement ne se termine, mettez à jour votre simulation afin que les elfes sachent où se placer pour être prêts à décharger la dernière caisse de provisions. <em>Après que la procédure de réarrangement se soit terminée, quelle caisse termine au sommet de chacune des piles ?</em></p>
+</section> 
+</body> 
+</html> 
