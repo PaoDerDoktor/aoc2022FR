@@ -1,0 +1,47 @@
+<!DOCTYPE html> 
+<html lang='fr'> 
+<head> 
+<meta charset='UTF-8'> 
+<link href="https://fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet"> 
+<link rel='stylesheet' type='text/css' href='../style/aocLike.css'> 
+<meta name='day' content="day6"> 
+</head> 
+<body> 
+<section id='translation_part_one'> 
+<h1 id="jour-6-problèmes-de-réglage----">--- Jour 6 : Problèmes de réglage ---</h1>
+<p>Les préparatifs sont enfin terminés. Les elfes et vous quittez donc le camp à pieds et commencez à trouver votre chemin vers le bosquet de fruit <strong>étoilés</strong>.</p>
+<p>Pendant que vous avancez dans les denses broussailles, l'un des elfes vous donne un <em>appareil</em> portable. Il vous dit qu'il comporte beaucoup de super fonctionnalités, mais que le plus important pour le moment est de régler son <em>système de communication</em>.</p>
+<p>Cependant, puisqu'il a entendu parler de votre expertises significative des <a href="https://adventofcode.com/2016/day/6">systèmes</a> <a href="https://adventofcode.com/2016/day/25">de</a> <a href="https://adventofcode.com/2019/day/7">communications</a> <a href="https://adventofcode.com/2019/day/9">basés</a> <a href="https://adventofcode.com/2019/day/16">sur</a> <a href="https://adventofcode.com/2021/day/25">signaux</a>, il a convaincu les autres elfes qu'il serait avisé de vous donner leur seul appareil défectueux - bien sûr vous n'aurez aucun problème pour le réparer.</p>
+<p>Comme s'il se trouvait inspiré par le timing comique, l'appareil se met à émettre des étincelles multicolores.</p>
+<p>Pour pouvoir communiquer avec les elfes, votre appareil doit <em>se verrouiller sur leur signal</em>. Le signal est une série de caractères, ressemblant à une série aléatoire, que l'appareil reçoit un par un.</p>
+<p>Pour réparer le système de communication, vous devrez ajouter une sous-routine à l'appareil capable de détecter un <em>marqueur de début de paquet</em> dans le flux de données. Dans le protocole utilisé par les elfes, le début d'un paquet est indiqué par une séquence de <em>quatre caractères, tous différents</em>.</p>
+<p>L'appareil enverra à votre sous-routine un tampon correspondant au flux de données (l'entrée de votre puzzle). Votre sous-routine doit identifier la première position dans ce tampon où les quatre caractères reçus le plus récemment sont tous différents. Plus précisément, elle doit reporter le nombre de caractères entre le début du tampon et le dernier caractère de ce marqueur de quatre caractères.</p>
+<p>Par exemple, supposez que vous ayez reçu le tampon de flux de données suivant :</p>
+<pre class="datastream"><code>mjqjpqmgbljsphdztnvjfqwrcgsmlb</code></pre>
+<p>Après que les trois premiers caractères (<code>mjq</code>) aient été reçus, il n'y a pas assez de caractères pour trouver le marqueur. Le premier moment où un marqueur pourrait être présent est après que le quatrième caractère ait été reçu, ce qui fait des quatre caractères les plus récents les caractères <code>mjqj</code>. Puisque <code>j</code> est répété, ce n'est pas un marqueur.</p>
+<p>La première fois qu'un marqueur apparaît est après que le <em>septième</em> caractère soit reçu. Une fois arrivé, les quatre derniers caractères sont <code>jpqm</code>, qui sont tous différents. Dans ce cas, votre sous-routine doit renvoyer la valeur <em><code>7</code></em>, puisque le premier marqueur de début de paquet est complété après que 7 caractères soient traités.</p>
+<p>Voici quelques autres exemples :</p>
+<ul>
+<li><code>bvwbjplbgvbhsrlpgdmjqwftvncz</code> : premier marqueur après <em><code>5</code></em> caractères</li>
+<li><code>nppdvjthqldpwncqszvftbrmjlhg</code> : premier marqueur après <em><code>6</code></em> caractères</li>
+<li><code>nznrnfrfntjfmvfwmzdfjlvtqnbhcprsg</code> : premier marqueur après <em><code>10</code></em> caractères</li>
+<li><code>zcfzfwzzqfrljwzlrfnpqdbhtmscgvjw</code> : premier marqueur après <em><code>11</code></em> caractères</li>
+</ul>
+<p><em>Combien de caractères doivent être traités avant que le premier marqueur de début de paquet ne soit détecté ?</em></p>
+</section> 
+<section id='translation_part_two'> 
+<h1 id="partie-deux----">--- Partie Deux ---</h1>
+<p>Le système de communication de votre appareil détecte correctement les paquets, mais il ne fonctionne toujours pas. Il semblerait qu'il doive aussi détecter les <em>messages</em>.</p>
+<p>Un <em>marqueur de début de message</em> est semblable à un marqueur de début de paquet, sauf qu'il possède <em>14 caractères distincts</em> plutôt que 4.</p>
+<p>Voici quelques positions des premiers marqueurs de début de message pour tous les exemples ci-dessus :</p>
+<ul>
+<li><code>mjqjpqmgbljsphdztnvjfqwrcgsmlb</code> : premier marqueur après <em><code>19</code></em> caractères</li>
+<li><code>bvwbjplbgvbhsrlpgdmjqwftvncz</code> : premier marqueur après <em><code>23</code></em> caractères</li>
+<li><code>nppdvjthqldpwncqszvftbrmjlhg</code> : premier marqueur après <em><code>23</code></em> caractères</li>
+<li><code>nznrnfrfntjfmvfwmzdfjlvtqnbhcprsg</code> : premier marqueur après <em><code>29</code></em> caractères</li>
+<li><code>zcfzfwzzqfrljwzlrfnpqdbhtmscgvjw</code> : premier marqueur après <em><code>26</code></em> caractères</li>
+</ul>
+<p><em>Combien de caractères doivent être traités avant que le premier marqueur de début de message ne soit détecté ?</em></p>
+</section> 
+</body> 
+</html> 
