@@ -1,0 +1,99 @@
+<!DOCTYPE html> 
+<html lang='fr'> 
+<head> 
+<meta charset='UTF-8'> 
+<link href="https://fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet"> 
+<link rel='stylesheet' type='text/css' href='../style/aocLike.css'> 
+<meta name='day' content="day7"> 
+</head> 
+<body> 
+<section id='translation_part_one'> 
+<h1 id="jour-7-pas-despace-libre-sur-le-disque----">--- Jour 7 : Pas d'espace libre sur le disque ---</h1>
+<p>Vous pouvez entendre des oiseaux chantonner et des gouttes de pluie tomber sur des feuilles pendant que l'expédition se poursuit. Parfois, vous pouvez même entendre des bruits encore plus forts, au loin. À quel point les animaux sont ils grands ici, d'ailleurs ?</p>
+<p>En tout cas, l'appareil des elfes a d'autres problèmes que son système de communication. Vous essayez mettre son système à jour :</p>
+<pre class="elfos"><code>$ mise-a-jour-systeme --s-il-te-plait --s-il-te-plait-avec-du-sucre-dessus
+Erreur: Pas d&#39;espace libre sur le disque</code></pre>
+<p>Peut-être pourriez-vous supprimer certains fichiers afin de faire de la place pour la mise-à-jour ?</p>
+<p>Vous naviguez à travers le système de fichiers pour vous rendre compte de la situation et sauvegardez a sortie de terminal résultante (l'entrée de votre puzzle). Par exemple :</p>
+<pre class="elfos"><code>$ cd /
+$ ls
+dir a
+14848514 b.txt
+8504156 c.dat
+dir d
+$ cd a
+$ ls
+dir e
+29116 f
+2557 g
+62596 h.lst
+$ cd e
+$ ls
+584 i
+$ cd ..
+$ cd ..
+$ cd d
+$ ls
+4060174 j
+8033020 d.log
+5626152 d.ext
+7214296 k</code></pre>
+<p>Le système de fichiers consiste en un arbre de fichiers (données binaires) et de dossiers (qui contiennent d'autres dossiers ou des fichiers). Le plus haut des dossiers, la racine de l'arbre, est appelé <code>/</code>. Vous pouvez naviguer dans le système de fichiers, vous déplaçant dans ou en-dehors des dossiers et listant le contenu du dossier dans lequel vous êtes actuellement.</p>
+<p>Dans la sortie de terminal, les lignes démarrant par <code>$</code> sont les <em>commandes que vous exécutez</em>, similairement à la plupart des ordinateurs modernes :</p>
+<ul>
+<li><code>cd</code> signifie <em><code>change directory</code></em> ("changement de dossier" en français). Cette commande change quel dossier est le dossier actuel, le résultat spécifique dépendant de l'argument de la commande :
+<ul>
+<li><code>cd x</code> permet de se déplacer <code>dans</code> un niveau : il cherche dans le dossier actuel un dossier nommé <code>x</code> et en fait le dossier actuel.</li>
+<li><code>cd ..</code> se déplace <code>en-dehors</code> d'un niveau : il trouve le dossier qui contient le dossier actuel et en fait le dossier actuel.</li>
+<li><code>cd /</code> permet de faire du dossier-racine <code>/</code> le dossier actuel.</li>
+</ul></li>
+<li><code>ls</code> signifie <em><code>list</code></em> ("liste" en français, tout simplement). Cette commande affiche tous les fichiers et tous les dossiers contenus immédiatement dans le dossier actuel :
+<ul>
+<li><code>123 abc</code> signifie que le dossier actuel contient un fichier nommé <code>abc</code> d'une taille de <code>123</code>.</li>
+<li><code>dir xyz</code> signifie que le dossier actuel contient un dossier nommé <code>xyz</code></li>
+</ul></li>
+</ul>
+<p>Étant donné les commandes et les sorties de l'exemple ci-dessus, vous pouvez déterminer que le système de fichiers ressemble visuellement à ça :</p>
+<pre class="tree"><code>- / (dir)
+  - a (dir)
+    - e (dir)
+      - i (file, size=584)
+    - f (file, size=29116)
+    - g (file, size=2557)
+    - h.lst (file, size=62596)
+  - b.txt (file, size=14848514)
+  - c.dat (file, size=8504156)
+  - d (dir)
+    - j (file, size=4060174)
+    - d.log (file, size=8033020)
+    - d.ext (file, size=5626152)
+    - k (file, size=7214296)</code></pre>
+<p>Ici, on trouve quatre dossiers : <code>/</code> (le dossier-racine), <code>a</code> et <code>d</code> (qui sont dans <code>/</code>), et <code>e</code> (qui est dans <code>a</code>). Ces dossiers contiennent aussi des fichiers de différentes tailles.</p>
+<p>Puisque le disque est plein, la première étape devrait être de trouver les dossiers qui seraient de bons candidats pour la suppression. Pour ce faire, vous devez déterminer la <em>taille totale</em> de chaque dossier. La taille totale d'un dossier est la somme des tailles des fichiers qu'il contient, directement ou indirectement (les dossiers en eux-mêmes ne comptent pas comme ayant une taille intrinsèque).</p>
+<p>Les tailles totales des dossiers ci-dessus peuvent être trouvées comme suit :</p>
+<ul>
+<li>La taille totale du dossier <code>e</code> est <em>584</em> puisqu'il ne contient qu'un seul fichier <code>i</code> de taille 584 et aucun autre sous-dossier.</li>
+<li>Le dossier <code>a</code> a pour taille totale <em>94853</em> puisqu'il contient les fichiers <code>f</code> (de taille 29116), <code>g</code> (de taille 2557), et <code>h.lst</code> (de taille 62596), ainsi que le fichier <code>i</code> indirectement (<code>a</code> contient <code>e</code>, qui contient <code>i</code>).</li>
+<li>Le dossier <code>d</code> a une taille totale de <em>24933642</em>.</li>
+<li>En tant que dossier-racine, <code>/</code> contient tous les fichiers. Sa taille totale est de <em>48381165</em>, la somme des tailles de tous les fichiers.</li>
+</ul>
+<p>Pour commencer, trouvez tous les dossiers ayant une taille totale <em>d'au plus 100000</em>, puis calculez la somme de leurs tailles totales. Dans l'exemple ci-dessus, ces dossiers sont <code>a</code> et <code>e</code>, et la somme de leur tailles totales est <em><code>95437</code></em> (94853 + 584). Comme dans cet exemple, ce procédé peut compter certains fichiers plus d'une fois !</p>
+<p>Trouvez tous les dossiers avec une taille totale d'au plus 100000. <em>Quelle est la somme des tailles totales de ces fichiers ?</em></p>
+</section> 
+<section id='translation_part_two'> 
+<h1 id="partie-deux----">--- Partie Deux ---</h1>
+<p>Désormais, vous êtes prêt à choisir un dossier à supprimer.</p>
+<p>L'espace disque disponible total du système de fichier est de <em><code>70000000</code></em>. Pour installer la mise-à-jour, vous avez besoin d'un espace libre d'au moins <em><code>30000000</code></em>. Vous devez donc trouver un dossier à supprimer qui <em>libérera assez d'espace</em> pour installer la mise-à-jour.</p>
+<p>Dans l'exemple ci-dessus, la taille totale du dossier-racine (et donc l'espace utilisé) est de <code>48381165</code>. Ceci signifie que la taille de l'espace <em>libre</em> est actuellement de <code>21618835</code>, assez loin donc des <code>30000000</code> requis pour la mise-à-jour. Ainsi, la mise-à-jour a besoin qu'un dossier d'une taille d'au moins <code>8381165</code> soit supprimé pour se faire.</p>
+<p>Afin d'y arriver, vous avez les options suivantes :</p>
+<ul>
+<li>Supprimer le dossier <code>e</code>, ce qui devrait augmenter l'espace libre de <code>584</code>.</li>
+<li>Supprimer le dossier <code>a</code>, ce qui devrait augmenter l'espace libre de <code>94853</code>.</li>
+<li>Supprimer le dossier <code>d</code>, ce qui devrait augmenter l'espace libre de <code>24933642</code>.</li>
+<li>Supprimer le dossier <code>/</code>, ce qui devrait augmenter l'espace libre de <code>48381165</code>.</li>
+</ul>
+<p>Les dossiers <code>e</code> et <code>a</code> sont tous les deux trop petit : les supprimer ne libérerais pas assez d'espace. Cependant, les dossiers <code>d</code> et <code>/</code> sont tous les deux assez grands ! Entre ceux-ci, choisissez le <em>plus petit</em> dossier : <code>d</code>, ce qui augmentera l'espace libre de <em><code>24933642</code></em>.</p>
+<p>Trouvez le plus petit dossier qui, s'il était supprimé, libérerait assez d'espace disque pour faire la mise-à-jour. <em>Quelle est la taille totale de ce dossier ?</em></p>
+</section> 
+</body> 
+</html> 
