@@ -1,0 +1,72 @@
+<!DOCTYPE html> 
+<html lang='fr'> 
+<head> 
+<meta charset='UTF-8'> 
+<link href="https://fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet"> 
+<link rel='stylesheet' type='text/css' href='../style/aocLike.css'> 
+<meta name='day' content="day8"> 
+</head> 
+<body> 
+<section id='translation_part_one'> 
+<h1 id="jour-8-cabane-arboricole----">--- Jour 8 : Cabane arboricole ---</h1>
+<p>L'expédition rencontre un groupe de grands arbres un peu particulier, tous plantés précisément sur une grille. Les elfes vous expliquent qu'une expédition précédente les a plantés dans un objectif de reforestation. À présents, ils sont curieux de savoir s'ils pourraient représenter un bon endroit pour une <a href="https://fr.wikipedia.org/wiki/Maison_arboricole">cabane arboricole</a>.</p>
+<p>Premièrement, déterminez si il y a assez de couverture par les arbres ici pour <em>cacher</em> la cabane. Pour ce faire, vous devez compter le nombre d'arbres <em>visibles depuis en-dehors de la grille</em> en regardant directement une ligne ou une colonne.</p>
+<p>Les elfes ont déjà lancé un <a href="https://fr.wikipedia.org/wiki/Quadrirotor">quadricoptère</a> pour générer une carte présentant la hauteur de chaque arbre (l'entrée de votre puzzle). Par exemple :</p>
+<pre class="treemap"><code>30373
+25512
+65332
+33549
+35390</code></pre>
+<p>Chaque arbre est représenté par un entier dont la valeur est sa hauteur, où <code>0</code> est la plus faible et <code>9</code> la plus grande.</p>
+<p>Un arbre est <em>visible</em> si tous les autres arbres entre lui et le bord de la grille sont <em>plus petits</em> que lui. Ne considérez que les arbres de la même ligne ou colonne, c'est-à-dire seulement au-dessus, en-dessous, à gauche ou à droite d'un arbre donné.</p>
+<p>Chacun des arbres du bord de la grille sont <em>visibles</em> - puisqu'ils sont déjà sur la grille, aucun arbre ne bloque la vue. Dans cet exemple, ça ne laisse que les <em>neufs arbres de l'intérieur de la grille</em> à vérifier :</p>
+<ul>
+<li>Le <code>5</code> supérieur-gauche est <em>visible</em> depuis la gauche et le dessus (il n'est pas visible depuis la droite ou le bas puisque d'autres arbres de taille <code>5</code> sont sur le chemin).</li>
+<li>Le <code>5</code> supérieur-milieu est <em>visible</em> depuis le haut et la droite.</li>
+<li>Le <code>1</code> supérieur-droit n'est pas visible depuis aucune direction : pour qu'il soit visible, il aurait fallu qu'il n'y ait que des arbres de taille <em><code>0</code></em> entre lui et une bordure.</li>
+<li>Le <code>5</code> milieu-gauche est <em>visible</em>, mais seulement depuis la droite.</li>
+<li>Le <code>3</code> au centre n'est pas visible depuis aucune direction : pour qu'il soit visible, il aurait fallu qu'il n'y ait que des arbres d'une taille maximum de <code>2</code> entre lui et une bordure.</li>
+<li>Sur la rangée du bas, le <code>5</code> du milieu est <em>visible</em>, mais le <code>3</code> et le <code>4</code> ne le sont pas.</li>
+</ul>
+<p>Avec 16 arbres visibles sur la bordure et 5 autres visibles à l'intérieur de la grille, un total de <em><code>21</code></em> arbres sont visibles dans cet arrangement.</p>
+<p>Regardez votre carte. <em>Combien d'arbres sont visibles depuis en-dehors de la grille ?</em></p>
+</section> 
+<section id='translation_part_two'> 
+<h1 id="partie-deux----">--- Partie Deux ---</h1>
+<p>Satisfaits de la couverture arboricole disponible, les elfes ont maintenant seulement besoin de connaître le meilleur endroit pour construire leur cabane : ils voudraient pouvoir y voir <em>beaucoup d'arbres</em>.</p>
+<p>Pour mesurer la distance de vue depuis un arbre, regardez en haut, en bas, à gauche et à droite de cet arbre, et arrêtez vous si vous atteignez une bordure ou un arbre plus grand ou de la même taille que votre arbre actuel (si un arbre est pile sur la bordure, au moins l'une de ses distances de vue sera donc de zéro).</p>
+<p>Les elfes se fichent des arbres lointains plus grands que ceux trouvés en suivant la règle ci-dessus : le modèle ce cabane qu'ils proposent d'utiliser possède de grands <a href="https://i.pinimg.com/736x/53/6c/8e/536c8e8aa2c9e12bf9755cf5afb8a2a5--pvc.jpg">avant-toits</a> pour la garder au sec, ils ne pourraient donc même pas voir plus haut que la maison de toute manière.</p>
+<p>Dans l'exemple ci-dessus, considérez le <code>5</code> au milieu de la seconde ligne :</p>
+<code>
+<pre>30373
+25<em>5</em>12
+65332
+33549
+35390</pre>
+<p></code></p>
+<ul>
+<li>En regardant vers le haut, sa vue n ést pas bloquée : on peut y voir <em><code>1</code></em> arbre (d'une hauteur de <code>3</code>).</li>
+<li>En regardant à gauche, sa vue est immédiatement bloquée : on ne peut y voir qu'<em><code>1</code></em> arbre (d'une hauteur de <code>5</code>, juste à côté de lui).</li>
+<li>En regardant à droite, sa vue n'est pas bloquée : on peut y voir <em><code>2</code></em> arbres.</li>
+<li>En regardant vers le bas, sa vue est bloquée à un moment : on peut y voir <em><code>2</code></em> arbres (un d'une hauteur de <code>3</code>, puis l'arbre d'une hauteur de <code>5</code> qui bloque la vue).</li>
+</ul>
+<p>Le <em>score scénique</em> d'un arbre est trouvé en <em>multipliant ensemble</em> ses distances de vue dans chacune des quatre directions. Pour cet arbre, il est de <em><code>4</code></em> (trouvé en multipliant <code>1 * 1 * 2 * 2</code>).</p>
+<p>Cependant, vous pouvez faire encore mieux : considérez l'arbre de taille <code>5</code> au milieu de la quatrième ligne :</p>
+<code>
+<pre>30373
+25512
+65332
+33<em>5</em>49
+35390</pre>
+<p></code></p>
+<ul>
+<li>En regardant vers le haut, sa vue est bloquée à <em><code>2</code></em> arbres (par un autre arbre de taille <code>5</code>).</li>
+<li>En regardant à gauche, sa vue n'est pas bloquée : on peut y voir <em><code>2</code></em> arbres.</li>
+<li>En regardant à droite, sa vue est bloquée à <em><code>2</code></em> arbres (pas un immense arbre de taille <code>9</code>).</li>
+<li>En regardant vers le bas, sa vue n'est pas bloquée, on peut y voir <em><code>1</code></em> arbre.</li>
+</ul>
+<p>Ceci donne à l'arbre en question un score scénique de <em><code>8</code></em> (<code>2 * 2 * 1 * 2</code>) : il s'agit de la meilleure place pour la cabane arboricole.</p>
+<p>Prenez en compte tous les arbres de votre carte. <em>Quel est le plus grand score scénique possible parmi tous les arbres ?</em></p>
+</section> 
+</body> 
+</html> 
