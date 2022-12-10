@@ -1,0 +1,314 @@
+<!DOCTYPE html> 
+<html lang='fr'> 
+<head> 
+<meta charset='UTF-8'> 
+<link href="https://fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet"> 
+<link rel='stylesheet' type='text/css' href='../style/aocLike.css'> 
+<meta name='day' content="day10"> 
+</head> 
+<body> 
+<section id='translation_part_one'> 
+<h1 id="jour-10-tube-cathodique----">--- Jour 10 : Tube Cathodique ---</h1>
+<p>Vous évitez les cordes, plongez dans la rivière, et nagez vers la berge.</p>
+<p>Les elfes vous crient quelque chose dont vous discernez le sujet : se retrouver en amont de la rivière. Malheureusement, la rivière est trop bruyante pour les comprendre exactement. Ils terminent leur traversée du pont et disparaissent de votre champs de vision.</p>
+<p>Les situations comme celles-ci doivent être la raison pour laquelle les elfes ont priorisé l'installation de leur système de communication sur votre appareil portable. Vous le sortez de votre paquetage, mais la quantité d'eau se déversant lentement d'une grosse fissure sur l'écran vous font vous dire qu'il n'est pas vraiment prêt pour un usage immédiat.</p>
+<p><em>À moins que</em>, en réalité, vous soyez capable de construire un système vidéo de rechange pour votre appareil ! Il semble qu'il soit composé d'un <a href="https://fr.wikipedia.org/wiki/Tube_cathodique">écran cathodique</a> et d'un processeur basique, tous deux pilotés par un <em>circuit d'horloge</em> précis. Cette horloge possède une cadence constante : chaque unité de temps est appelé un <em>cycle</em>.</p>
+<p>Commencez par trouver le signal envoyé par le processeur. Le processeur possède un unique registre, <code>X</code>, qui démarre avec une valeur de <code>1</code>. Il supporte seulement deux instruction s:</p>
+<ul>
+<li><code>addx V</code> prends <em>deux cycles</em> à se faire. <em>Après</em> deux cycles, le registre <code>X</code> prends en addition la valeur <code>V</code> (<code>V</code> peut être une valeur négative).</li>
+<li><code>noop</code> prends <em>un cycle</em> à se faire. Elle n'a pas d'autre effet.</li>
+</ul>
+<p>Le processeur utilise ces instructions dans un programme (l'entrée de votre puzzle) pour, d'une manière ou d'une autre, dire à l'écran ce qu'il doit afficher.</p>
+<p>Prenez, par exemple, le petit programme suivant :</p>
+<pre class="crtcpu"><code>noop
+addx 3
+addx -5</code></pre>
+<p>L'exécution du programme se fait comme suit :</p>
+<ul>
+<li>Au début du premier cycle, l'instruction <code>noop</code> commence à s'exécuter. Pendant ce premier cycle, <code>X</code> vaut <code>1</code>. Après le premier cycle, l'instruction <code>noop</code> se termine, en n'ayant rien fait.</li>
+<li>Au début du second cycle, l'instruction <code>addx 3</code> commence à s'exécuter. Durant le second cycle, <code>X</code> vaut toujours <code>1</code>.</li>
+<li>Pendant le troisième cycle, <code>X</code> vaut toujours <code>1</code>. Après ce troisième cycle, l'instruction <code>addx 3</code> finit de s'exécuter, mettant <code>X</code> à <code>4</code>.</li>
+<li>Au début du quatrième cycle, l'instruction <code>addx -5</code> commence à s'exécuter. Pendant le quatrième cycle, la valeur de <code>X</code> est toujours <code>4</code>.</li>
+<li>Pendant le cinquième cycle, <code>X</code> vaut toujours <code>4</code>. Après le cinquième cycle, l'instruction <code>addx -5</code> finit de s'exécuter, mettant <code>X</code> à <code>-1</code>.</li>
+</ul>
+<p>Peut-être pouvez-vous apprendre quelque chose en regardant la valeur du registre <code>X</code> pendant l'exécution. Pour le moment, considérez la <em>force du signal</em> (le numéro de cycle multiplié par la valeur du registre <code>X</code>) <em>pendant</em> le 20ème cycle, puis tous les 40 cycles après ça (c'est-à-dire durant les cycles 20, 60, 100, 140, 180, 220).</p>
+<p>Par exemple, prenez cet exemple plus grand :</p>
+<pre class="crtcpu"><code>addx 15
+addx -11
+addx 6
+addx -3
+addx 5
+addx -1
+addx -8
+addx 13
+addx 4
+noop
+addx -1
+addx 5
+addx -1
+addx 5
+addx -1
+addx 5
+addx -1
+addx 5
+addx -1
+addx -35
+addx 1
+addx 24
+addx -19
+addx 1
+addx 16
+addx -11
+noop
+noop
+addx 21
+addx -15
+noop
+noop
+addx -3
+addx 9
+addx 1
+addx -3
+addx 8
+addx 1
+addx 5
+noop
+noop
+noop
+noop
+noop
+addx -36
+noop
+addx 1
+addx 7
+noop
+noop
+noop
+addx 2
+addx 6
+noop
+noop
+noop
+noop
+noop
+addx 1
+noop
+noop
+addx 7
+addx 1
+noop
+addx -13
+addx 13
+addx 7
+noop
+addx 1
+addx -33
+noop
+noop
+noop
+addx 2
+noop
+noop
+noop
+addx 8
+noop
+addx -1
+addx 2
+addx 1
+noop
+addx 17
+addx -9
+addx 1
+addx 1
+addx -3
+addx 11
+noop
+noop
+addx 1
+noop
+addx 1
+noop
+noop
+addx -13
+addx -19
+addx 1
+addx 3
+addx 26
+addx -30
+addx 12
+addx -1
+addx 3
+addx 1
+noop
+noop
+noop
+addx -9
+addx 18
+addx 1
+addx 2
+noop
+noop
+addx 9
+noop
+noop
+noop
+addx -1
+addx 2
+addx -37
+addx 1
+addx 3
+noop
+addx 15
+addx -21
+addx 22
+addx -6
+addx 1
+noop
+addx 2
+addx 1
+noop
+addx -10
+noop
+noop
+addx 20
+addx 1
+addx 2
+addx 2
+addx -6
+addx -11
+noop
+noop
+noop</code></pre>
+<p>Les forces de signal intéressantes peuvent être déterminées comme ceci :</p>
+<ul>
+<li>Durant le 20ème cycle, le registre <code>X</code> vaut <code>21</code>, la force du signal est donc de 20 * 21 = <em><code>420</code></em> (le 20ème cycle a lieu au milieu de l'exécution de la deuxième instruction <code>addx -1</code>, la valeur du registre est donc la valeur de départ <code>1</code> à laquelle on ajoute toutes les autres valeurs de <code>addx</code> jusqu'ici : 1 + 15 - 11 + 6 - 3 + 5 - 1 - 8 + 13 + 4 = 21.)</li>
+<li>Pendant le 60ème cycle, le registre <code>X</code> vaut <code>19</code>, la force du signal est donc 60 * 19 = <em><code>1140</code></em>.</li>
+<li>Pendant le 100ème cycle, le registre <code>X</code> vaut <code>18</code>, la force du signal est donc 100 * 18 = <em><code>1800</code></em>.</li>
+<li>Pendant le 140ème cycle, le registre <code>X</code> vaut <code>21</code>, la force du signal est donc 140 * 21 = <em><code>2940</code></em>.</li>
+<li>Pendant le 180ème cycle, le registre <code>X</code> vaut <code>16</code>, la force du signal est donc 180 * 16 = <em><code>2880</code></em>.</li>
+<li>Pendant le 220ème cycle, le registre <code>X</code> vaut <code>18</code>, la force du signal est donc 220 * 18 = <em><code>3960</code></em>.</li>
+</ul>
+<p>La somme de ces forces vaut <em><code>13140</code></em>.</p>
+<p>Trouvez les forces de signal pendant les 20ème, 60ème, 100ème, 140ème, 180ème et 220ème cycles. <em>Quelle est la somme de ces six forces de signal ?</em></p>
+</section> 
+<section id='translation_part_two'> 
+<h1 id="partie-deux----">--- Partie Deux ---</h1>
+<p>Il semblerait que le registre <code>X</code> controlle la position horizontale d'un <a href="https://fr.wikipedia.org/wiki/Sprite_(jeu_vid%C3%A9o)">sprite</a>. Plus précisément, le sprite fait 3 pixels de large, et le registre <code>X</code> représente la position horizontale du <em>milieu</em> de ce sprite (dans ce système de coordonnées, il n'y a pas de "position verticale" : si la position horizontale du sprite mets ces pixels à l'endroit où l'écran est en train d'afficher, alors ses pixels seront dessinés).</p>
+<p>Vous comptez les pixels de l'écran cathodique : il y en a 40 en longueur et 6 en hauteur. Cet écran cathodique dessine <em>un pixel à chaque cycle</em>. Si l'on représente chaque pixel de l'écran par un <code>#</code>, voici les cycles durant lesquels le premier et le dernier pixel de chaque ligne sont dessinés :</p>
+<code>
+<pre>Cycle   1 -> <em>#</em>######################################<em>#</em> <- Cycle  40
+Cycle  41 -> <em>#</em>######################################<em>#</em> <- Cycle  80
+Cycle  81 -> <em>#</em>######################################<em>#</em> <- Cycle 120
+Cycle 121 -> <em>#</em>######################################<em>#</em> <- Cycle 160
+Cycle 161 -> <em>#</em>######################################<em>#</em> <- Cycle 200
+Cycle 201 -> <em>#</em>######################################<em>#</em> <- Cycle 240</pre>
+<p></code></p>
+<p>Ainsi, en <a href="https://en.wikipedia.org/wiki/Racing_the_Beam">chronométrant</a> <a href="https://www.youtube.com/watch?v=sJFnWZH5FXc">précisément</a> les instructions du processeur et les opérations de rendu de l'écran cathodique, vous devriez être capable de déterminer si le sprite est visible à l'instant où chacun des pixels est rendu. Si un sprite est positionné de telle manière à ce que l'un de ces trois pixels soit le pixel en train d'être rendu par l'écran, l'écran produit un pixel <em>allumé</em> (<code>#</code>). Sinon, il laisse un pixel <em>éteint</em> (<code>.</code>).</p>
+<p>Les quelques premiers pixels du grand exemple ci-dessus sont rendus ainsi :</p>
+<pre class="crtreport"><code>Sprite position: ###.....................................
+
+Start cycle   1: begin executing addx 15
+During cycle  1: CRT draws pixel in position 0
+Current CRT row: #
+
+During cycle  2: CRT draws pixel in position 1
+Current CRT row: ##
+End of cycle  2: finish executing addx 15 (Register X is now 16)
+Sprite position: ...............###......................
+
+Start cycle   3: begin executing addx -11
+During cycle  3: CRT draws pixel in position 2
+Current CRT row: ##.
+
+During cycle  4: CRT draws pixel in position 3
+Current CRT row: ##..
+End of cycle  4: finish executing addx -11 (Register X is now 5)
+Sprite position: ....###.................................
+
+Start cycle   5: begin executing addx 6
+During cycle  5: CRT draws pixel in position 4
+Current CRT row: ##..#
+
+During cycle  6: CRT draws pixel in position 5
+Current CRT row: ##..##
+End of cycle  6: finish executing addx 6 (Register X is now 11)
+Sprite position: ..........###...........................
+
+Start cycle   7: begin executing addx -3
+During cycle  7: CRT draws pixel in position 6
+Current CRT row: ##..##.
+
+During cycle  8: CRT draws pixel in position 7
+Current CRT row: ##..##..
+End of cycle  8: finish executing addx -3 (Register X is now 8)
+Sprite position: .......###..............................
+
+Start cycle   9: begin executing addx 5
+During cycle  9: CRT draws pixel in position 8
+Current CRT row: ##..##..#
+
+During cycle 10: CRT draws pixel in position 9
+Current CRT row: ##..##..##
+End of cycle 10: finish executing addx 5 (Register X is now 13)
+Sprite position: ............###.........................
+
+Start cycle  11: begin executing addx -1
+During cycle 11: CRT draws pixel in position 10
+Current CRT row: ##..##..##.
+
+During cycle 12: CRT draws pixel in position 11
+Current CRT row: ##..##..##..
+End of cycle 12: finish executing addx -1 (Register X is now 12)
+Sprite position: ...........###..........................
+
+Start cycle  13: begin executing addx -8
+During cycle 13: CRT draws pixel in position 12
+Current CRT row: ##..##..##..#
+
+During cycle 14: CRT draws pixel in position 13
+Current CRT row: ##..##..##..##
+End of cycle 14: finish executing addx -8 (Register X is now 4)
+Sprite position: ...###..................................
+
+Start cycle  15: begin executing addx 13
+During cycle 15: CRT draws pixel in position 14
+Current CRT row: ##..##..##..##.
+
+During cycle 16: CRT draws pixel in position 15
+Current CRT row: ##..##..##..##..
+End of cycle 16: finish executing addx 13 (Register X is now 17)
+Sprite position: ................###.....................
+
+Start cycle  17: begin executing addx 4
+During cycle 17: CRT draws pixel in position 16
+Current CRT row: ##..##..##..##..#
+
+During cycle 18: CRT draws pixel in position 17
+Current CRT row: ##..##..##..##..##
+End of cycle 18: finish executing addx 4 (Register X is now 21)
+Sprite position: ....................###.................
+
+Start cycle  19: begin executing noop
+During cycle 19: CRT draws pixel in position 18
+Current CRT row: ##..##..##..##..##.
+End of cycle 19: finish executing noop
+
+Start cycle  20: begin executing addx -1
+During cycle 20: CRT draws pixel in position 19
+Current CRT row: ##..##..##..##..##..
+
+During cycle 21: CRT draws pixel in position 20
+Current CRT row: ##..##..##..##..##..#
+End of cycle 21: finish executing addx -1 (Register X is now 20)
+Sprite position: ...................###..................</code></pre>
+<p>Exécuter le programme mène à la création de cette image sur l'écran :</p>
+<pre class="crtdisplay"><code>##..##..##..##..##..##..##..##..##..##..
+###...###...###...###...###...###...###.
+####....####....####....####....####....
+#####.....#####.....#####.....#####.....
+######......######......######......####
+#######.......#######.......#######.....</code></pre>
+<p>Faites rendre l'image par votre programme. <em>Quelles sont les huit lettres capitales qui apparaissent sur votre écran cathodique ?</em></p>
+</section> 
+</body> 
+</html> 
