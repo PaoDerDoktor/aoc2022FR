@@ -1,0 +1,52 @@
+<!DOCTYPE html> 
+<html lang='fr'> 
+<head> 
+<meta charset='UTF-8'> 
+<link href="https://fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet"> 
+<link rel='stylesheet' type='text/css' href='../style/aocLike.css'> 
+<meta name='day' content="day12"> 
+</head> 
+<body> 
+<section id='translation_part_one'> 
+<h1 id="jour-12-algorithme-descalade-de-colline----">--- Jour 12 : Algorithme d'escalade de colline ---</h1>
+<p>Vous essayez de contacter les elfes en utilisant votre appareil portable, mais la rivière que vous suivez est trop basse pour capter un signal de qualité normale.</p>
+<p>Vous demandez à votre appareil de vous montrer une carte topographique de la zone (l'entrée de votre puzzle). La carte topographique montre la zone locale depuis le ciel, sur une grille : la hauteur de terrain de chaque case de la grille est donnée par une lettre minuscule, où <code>a</code> est le niveau le plus bas, <code>b</code> le suivant, et ainsi de suite jusqu'à <code>z</code>, le niveau le plus haut.</p>
+<p>Votre carte indique aussi votre position actuelle (<code>S</code>) et la position où vous devriez pouvoir trouver le meilleur signal (<code>E</code>). Votre position actuelle (<code>S</code>) est d'élévation <code>a</code>, tandis que l'emplacement au meilleur signal (<code>E</code>) est d'élévation <code>z</code>.</p>
+<p>Vous aimeriez atteindre <code>E</code>, mais pour économiser votre énergie, vous devriez le faire en <em>le moins d'étapes possible</em>. À chaque étape, vous pouvez vous déplacer d'exactement une case en haut, en bas, à gauche ou à droite. Pour éviter d'avoir besoin à sortir votre matériel d'escalade, au sein d'un mouvement, la hauteur de la case de destination d'un mouvement peut être <em>au plus une valeur plus haute</em> que celle de votre case de départ. Pour résumer, si votre hauteur actuelle est de <code>m</code>, vous pouvez monter à une élévation de <code>n</code>, mais pas à une élévation de <code>o</code> (cela signifie également que l'élévation de votre case de destination peut être bien plus basse que celle de votre case de départ).</p>
+<p>Par exemple :</p>
+<pre><code><em>S</em>abqponm
+abcryxxl
+accsz<em>E</em>xk
+acctuvwj
+abdefghi</code></pre>
+<p>Ici, vous démarrez dans le coin supérieur-gauche, votre but est près du milieu. Vous pourriez commencer par vous déplacer à gauche ou à droite, mais vous devez dans tous les cas vous diriger vers le <code>e</code> en-dessous. Depuis là-bas, vous pouvez tourner en spirale autour du but :</p>
+<pre class="hillmoves"><code>v..v&lt;&lt;&lt;&lt;
+&gt;v.vv&lt;&lt;^
+.&gt;vv&gt;E^^
+..v&gt;&gt;&gt;^^
+..&gt;&gt;&gt;&gt;&gt;^</code></pre>
+<p>Dans le diagramme ci-dessus, les symboles indiquent si le chemin sort de chaque case par le haut (<code>^</code>), le bas (<code>v</code>), la gauche (<code>&lt;</code>) ou la droite (<code>&gt;</code>). L'emplacement qui devrait offrir le meilleur signal est toujours noté <code>E</code>, et <code>.</code> marque les cases non-visitées.</p>
+<p>Ce chemin atteint la destination finale en <em><code>31</code></em> étapes, le plus bas nombre d'étapes possibles.</p>
+<p><em>Quel est le plus bas nombre d'étapes requises pour vous déplacer de votre position actuelle vers l'endroit qui devrait offrir le meilleur signal ?</em></p>
+</section> 
+<section id='translation_part_two'> 
+<h1 id="partie-deux----">--- Partie Deux ---</h1>
+<p>Alors que vous grimpez la colline, vous suspectez les elfes de vouloir transformer ce trajet de rassemblement en randonnée. Le départ n'est pas très panoramique, cela dit. Peut-être devriez-vous trouver un meilleur point de départ ?</p>
+<p>Pour maximiser l'exercice en randonnant, le chemin devrait commencé aussi bas que possible : élévation <code>a</code>. Le but est toujours a case marquée <code>E</code>. Cependant, le chemin devrait toujours être direct, en faisant le minimum d'étapes. Ainsi, vous devrez trouver le plus court chemin entre <em>n'importe quelle case d'élévation <code>a</code></em> jusqu'à la case marquée <code>E</code>.</p>
+<p>Une fois de plus, prenons l'exemple d'au-dessus :</p>
+<pre><code><em>S</em>abqponm
+abcryxxl
+accsz<em>E</em>xk
+acctuvwj
+abdefghi</code></pre>
+<p>Désormais, il y a six choix de positions de départ (cinq marquées d'un <code>a</code>, plus la case marquée d'un <code>S</code>, qui compte toujours comme état d'élévation <code>a</code>). Si vous démarrez au coin inférieur-gauche, vous pourrez atteindre le plus rapidement possible le point <code>E</code> :</p>
+<pre class="hillmoves"><code>...v&lt;&lt;&lt;&lt;
+...vv&lt;&lt;^
+...v&gt;E^^
+.&gt;v&gt;&gt;&gt;^^
+&gt;^&gt;&gt;&gt;&gt;&gt;^</code></pre>
+<p>Ce chemin atteint le but en <em><code>29</code></em> étapes, c'est le plus court possible.</p>
+<p><em>Quel est le plus petit nombre d'étapes requises pour vous déplacer de n'importe quelle case d'élévation <code>a</code> vers 'endroit qui devrait offrir le plus de signal ?</em></p>
+</section> 
+</body> 
+</html> 
